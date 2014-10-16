@@ -1,0 +1,20 @@
+//Get method
+
+WebRequest req = WebRequest.Create(@"http://localhost:61447/Products.svc/");
+ 
+req.Method = "GET";
+ 
+HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
+if (resp.StatusCode == HttpStatusCode.OK)
+{
+    using (Stream respStream = resp.GetResponseStream())
+    {
+        StreamReader reader = new StreamReader(respStream, Encoding.UTF8);
+        Console.WriteLine(reader.ReadToEnd());
+    }
+}
+else
+{
+    Console.WriteLine(string.Format("Status Code: {0}, Status Description: {1}", resp.StatusCode, resp.StatusDescription));
+}
+Console.Read();
